@@ -18,10 +18,10 @@ class List(object):
         self.head = None
         self.tail = None
         
-# Append: Inserts Node at end of List
-def Append(L, n):
+# Inserts Node at end of List
+def append(L, n):
     node = Node(n)
-    if IsEmpty(L):
+    if is_empty(L):
         L.head = node
         L.tail = L.head
     else:
@@ -29,10 +29,10 @@ def Append(L, n):
         L.tail = L.tail.next
     return
 
-# Prepend: Inserts Node at start of List
-def Prepend(L, n):
+# Inserts Node at start of List
+def prepend(L, n):
     node = Node(n)
-    if IsEmpty(L):
+    if is_empty(L):
         L.head = node
         L.tail = L.head
     else:
@@ -41,12 +41,12 @@ def Prepend(L, n):
         L.head.next = temp
     return
 
-# InsertAfter: Inserts m data after n data if it exists
-def InsertAfter(L, n, m):
+# Inserts m data after n data, if it exists
+def insert_after(L, n, m):
     if Search(L, n) != None and IsEmpty(L) != True:
         node = Node(m)
         if L.tail.data == n:
-            Append(L, m)
+            append(L, m)
             return
         else:
             iter = L.head
@@ -57,12 +57,12 @@ def InsertAfter(L, n, m):
             node.next = temp
     return
 
-# InsertAfterNode: Inserts m data after a particular Node, if it exists
-def InsertAfterNode(L, node, m):
-    if node != None and IsEmpty(L) != True:
-        newNode = Node(m)
+# Inserts m data after a particular Node, if it exists
+def insert_after_node(L, node, m):
+    if node != None and is_empty(L) != True:
+        new_node = Node(m)
         if node == L.tail:
-            Append(L, m)
+            append(L, m)
             return
         else:
             iter = L.head
@@ -70,12 +70,12 @@ def InsertAfterNode(L, node, m):
                 iter = iter.next
             temp = iter.next
             iter.next = newNode
-            newNode.next = temp
+            new_node.next = temp
     return
 
-# Remove: Removes the first Node containing n data
-def Remove(L, n):
-    if IsEmpty(L) != True or Search(L, n) != None:
+# Removes the first Node containing n data
+def remove(L, n):
+    if is_empty(L) != True or search(L, n) != None:
         if L.head.data == n:
             L.head = L.head.next
             return
@@ -94,9 +94,9 @@ def Remove(L, n):
             return
     return
 
-# RemoveNode: Removes a Node
-def RemoveNode(L, node):
-    if IsEmpty(L) != True:
+# Removes the specified node from list
+def remove_node(L, node):
+    if is_empty(L) != True:
         if node == L.head:
             L.head = L.head.next
             return
@@ -114,9 +114,9 @@ def RemoveNode(L, node):
             return
     return
 
-# Search: Data is returned if found, else None is returned
-def Search(L, data):
-    if IsEmpty(L):
+# Data is returned if found, else None is returned
+def search(L, data):
+    if is_empty(L):
         return None
     iter = L.head
     while iter != None:
@@ -125,9 +125,9 @@ def Search(L, data):
         iter = iter.next
     return None
 
-# Print: Prints List Nodes in order
-def Print(L):
-    if IsEmpty(L) != True:
+# Prints List Nodes in order
+def print_list(L):
+    if is_empty(L) != True:
         iter = L.head
         while iter != None:
             print(iter.data, end=' ')
@@ -135,44 +135,44 @@ def Print(L):
         print()
     return
 
-# PrintReverse: Prints List in reverse order
-def PrintReverse(L):
-    if IsEmpty(L) != True:
+# Prints List in reverse order
+def print_reverse(L):
+    if is_empty(L) != True:
         iter = L.head
-        PrintReversal(L, iter)
+        print_reversal(L, iter)
         print()
     return
 
-# PrintReversal: Recursive function that assists the Print Reverse function
-def PrintReversal(L, iter):
+# Recursive function that assists the print_reverse function
+def print_reversal(L, iter):
     if iter == L.tail:
         print(iter.data, end=' ')
     else:
-        PrintReversal(L, iter.next)
+        print_reversal(L, iter.next)
         print(iter.data, end=' ')
     return
 
-# Sort: Sorts the list Nodes in ascending order
-def Sort(L):
-    if GetLength(L) >= 2:
-        preIter = L.head
+# Sorts the list Nodes in ascending order
+def sort(L):
+    if get_length(L) >= 2:
+        pre_iter = L.head
         iter = L.head.next
         while iter != None:
-            position = InsertPosition(L, iter.data)
+            position = insert_position(L, iter.data)
             
-            if position == preIter:
-                preIter = iter
+            if position == pre_iter:
+                pre_iter = iter
             else:
-                RemoveNode(L, iter)
+                remove_node(L, iter)
                 if position == None:
-                    Prepend(L, iter.data)
+                    prepend(L, iter.data)
                 else:
-                    InsertAfterNode(L, position, iter.data)
+                    insert_after_node(L, position, iter.data)
             iter = iter.next
     return
 
-# InsertPosition: Finds position to insert for sort function
-def InsertPosition(L, data):
+# Finds position to insert for sort function
+def insert_position(L, data):
     iter1 = None
     iter2 = L.head
     while iter2 != None and data > iter2.data:
@@ -180,13 +180,13 @@ def InsertPosition(L, data):
         iter2 = iter2.next
     return iter1
 
-# IsEmpty: Returns true if there are no Nodes in the List
-def IsEmpty(L):
+# Returns true if there are no Nodes in the List
+def is_empty(L):
     return L.head == None and L.tail == None
 
-# GetLength: Returns the number of nodes in the List
-def GetLength(L):
-    if IsEmpty(L):
+# Returns the number of nodes in the List
+def get_length(L):
+    if is_empty(L):
         return 0
     iter = L.head
     count = 0
@@ -195,19 +195,19 @@ def GetLength(L):
         count += 1
     return count
 
-# Copy: Builds and returns a copy of the List
-def Copy(L):
+# Builds and returns a copy of the List
+def copy(L):
     copy = List()
     if L.head != None:
         iter = L.head
         while iter != None:
-            Append(copy, iter.data)
+            append(copy, iter.data)
             iter = iter.next
     return copy
     
-# ItemAt: Returns the data item at position i in List
-def ItemAt(L, i):
-    if IsEmpty(L) != True and i < GetLength(L):
+# Returns the data item at position i in List
+def item_at(L, i):
+    if is_empty(L) != True and i < get_length(L):
         iter = L.head
         for j in range(i):
             iter = iter.next
@@ -215,8 +215,8 @@ def ItemAt(L, i):
         return iter.data
     return
     
-def NodeAt(L, i):
-    if IsEmpty(L) != True and i < GetLength(L):
+def node_at(L, i):
+    if is_empty(L) != True and i < get_length(L):
         iter = L.head
         for j in range(i):
             iter = iter.next
@@ -224,16 +224,16 @@ def NodeAt(L, i):
         return iter
     return None
 
-# Pop: Removes the item at position i in List. If i is not specified, it removes the first item in theList
-def Pop(L, i=0):
-    node = NodeAt(L, i)
-    if IsEmpty != True and node != None:
-        RemoveNode(L, node)
+# Removes the item at position i in List. If i is not specified, it removes the first item in the List
+def pop(L, i=0):
+    node = node_at(L, i)
+    if is_empty != True and node != None:
+        remove_node(L, node)
     return
     
-# Count: Returns the number of items x appears in the List
-def Count(L, x):
-    if IsEmpty(L) != True:
+# Returns the number of items x appears in the List
+def count(L, x):
+    if is_empty(L) != True:
         count = 0
         iter = L.head
         while iter != None:
@@ -243,9 +243,9 @@ def Count(L, x):
         return count
     return
     
-# Index: Returns the index of the first item whose value is equal to x in the List
-def Index(L, x):
-    if IsEmpty(L) != True:
+# Returns the index of the first item whose value is equal to x in the List
+def index(L, x):
+    if is_empty(L) != True:
         iter = L.head
         index = 0
         while iter != None:
@@ -256,45 +256,45 @@ def Index(L, x):
                 iter = iter.next
     return
     
-# Clear: Removes all items from the List
-def Clear(L):
-    if IsEmpty(L) != True:
+# Removes all items from the List
+def clear(L):
+    if is_empty(L) != True:
         L.head = None
         L.tail = None
     return
     
-# Sublist: Builds and returns a sublist of the List from element start to elemend end, not inclusive
-def Sublist(L, start=0, end=GetLength(L)):
-    if start < 0 or end > GetLength(L):
+# Builds and returns a sublist of the List from element start to elemend end, not inclusive
+def sublist(L, start=0, end=get_length(L)):
+    if start < 0 or end > get_length(L):
         return
     sublist = List()
-    if IsEmpty(L) != True:
-        iter = NodeAt(L, start)
+    if is_empty(L) != True:
+        iter = node_at(L, start)
         while iter != None and start != end:
-            Append(sublist, iter.data)
+            append(sublist, iter.data)
             iter = iter.next
             start += 1
     return sublist
     
-# Reverse: Reverses the elements in the List
-def Reverse(L):
-    if IsEmpty(L) != True:
+# Reverses the elements in the List
+def reverse(L):
+    if is_empty(L) != True:
         iter = L.head
         reverse = List()
-        Reversal(L, reverse, iter)
-        Clear(L)
+        reversal(L, reverse, iter)
+        clear(L)
         iter2 = reverse.head
         while iter2 != None:
-            Append(L, iter2.data)
+            append(L, iter2.data)
             iter2 = iter2.next
     return
   
-def Reversal(L, reverse, iter):
-    Print(reverse)
+def reversal(L, reverse, iter):
+    print_list(reverse)
     if iter == L.tail:
-        Append(reverse, iter.data)
+        append(reverse, iter.data)
     else:
-        Reversal(L, reverse, iter.next)
-        Append(reverse, iter.data)
+        reversal(L, reverse, iter.next)
+        append(reverse, iter.data)
     return
         
