@@ -7,38 +7,37 @@
 
 import xlrd
 import math
-import numpy as np
-import matplotlib.pyplot as plt
 
-def XLSXMtoAL(M): 
 # Returns adjacency list of .xlsx Matrix
+def XLSXMtoAL(M): 
     AL = [[] for i in range(len(M[0])-1)]
     for x in range(1,len(M[0]),1):
         for y in range(1,len(M[0]),1):
             AL[x-1].append([FindCity(M,y-1),int(M[x][y])])
     return AL
-    
+
+# Prints each city's index in the Matrix
 def CitiesIndex(M):
-# Prints each citie's index number
     for i in range(1,len(M[0])):
         print(i-1,":",M[0][i])
     return 
 
+# Returns the index of the city in the Matrix or -1 if it does not exist
 def FindIndex(M, city):
-# Returns the index number of the city
     for i in range(1,len(M[0])):
         if M[0][i] == city:
             return i-1
     return -1
 
+# Returns the city name at the given index in the Matrix
 def FindCity(M, index):
-# Returns the city name of the index number
     if index == -1:
         return
     return M[0][index+1]
     
+# Finds the shortest path from every city to every other city and displays the city names
+#   in sequence and distance
 def ShortestPath(M, AL, city): 
-#Finds the shortest path from every city to every other city and displays the city names in sequence and overall distance
     startCity = FindIndex(M, city)
     unvisited = [i for i in range(len(AL))]
     distance = [math.inf for c in AL]
@@ -63,8 +62,8 @@ def ShortestPath(M, AL, city):
     print('\n')
     return path,distance
 
-def PrintPathDistance(M,path,currentP,index):
 # Assists ShortestPath function in printing path recursively
+def PrintPathDistance(M,path,currentP,index):
     if currentP==-1:
         print(FindCity(M,index), end='-')
     else:
@@ -72,8 +71,8 @@ def PrintPathDistance(M,path,currentP,index):
         print(FindCity(M,index), end='-')
     return
 
+# Adjacency list to edge list assists MinSpanningTree function
 def ALtoEL(M,AL):
-# Adjacency list to edge list
   edges = 0
   for i in range(len(AL)):
     edges += len(AL[i])
@@ -88,16 +87,18 @@ def ALtoEL(M,AL):
         j += 1
   return EL
 
-def Unite(S,i,j):
 # Assists MinSpanningTree function
+def Unite(S,i,j):
     removeSet = S[j]
     S.remove(S[j])
     for n in removeSet:
         S[i].append(n)
     return S
 
-def MinSpanningTree(M,AL):
 # Returns the Minimum Spanning Tree of an adjacency list
+    # The MST is a greedy approach that consists of a tree containing the shortest
+    # weighted paths between cities with no cycles
+def MinSpanningTree(M,AL):
     flightList = ALtoEL(M,AL)
     citySets = [[]for i in range(len(M[0][1:]))]
     i = 0
@@ -129,8 +130,8 @@ def MinSpanningTree(M,AL):
                 citySets = Unite(citySets,cSet2,cSet1)
     return resultList
 
-def MSTAL(M,EL):
 # Returns the undirected adjacency list of a MST
+def MSTAL(M,EL):
     AL = [[]for i in range(len(EL)+1)]
     for flight in EL:
         AL[FindIndex(M,flight[0])].append(flight[1:])
@@ -154,6 +155,7 @@ for x in range(rows):
 # Creates an adjacency list representation of the matrix
 AL = XLSXMtoAL(citiesMatrix)
 
+print("Shortest path on original matrix:\n")
 # ShortestPath is ran once for every city
 ShortestPath(citiesMatrix,AL,'El Paso')
 ShortestPath(citiesMatrix,AL,'San Antonio')
@@ -181,7 +183,7 @@ MST = MinSpanningTree(citiesMatrix,AL)
 # Creates an adjancecy list representation of the minimum spanning tree
 MSTAL = MSTAL(citiesMatrix,MST)
 
-print("MST:\n")
+print("Shortest path on Minimum Spanning Tree:\n")
 # ShortestPath is ran once for every city using the Minimum Spanning Tree adjacency list
 ShortestPath(citiesMatrix,MSTAL,'El Paso')
 ShortestPath(citiesMatrix,MSTAL,'San Antonio')
