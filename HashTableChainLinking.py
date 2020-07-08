@@ -5,7 +5,7 @@
 # T.A.: Ismael Villanueva-Miranda
 # Date of Last Modification: 7/28/19
 # Purpose: HashTable with chain linking implementation using plist buckets and corresponding 
-#           algorithms. Hash is value of item % table length. -1 is empty. -2 is deleted.
+#           algorithms. Hash is value of item % table length. -1 is empty.
 
 class HashTable(object):
   # Builds a hash table of size ‘size’
