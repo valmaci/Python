@@ -70,8 +70,6 @@ def Greedy(capacity,weight,value):
             remaining = remaining - weight[itemIndex[i]]
         else:
             fraction = remaining/weight[itemIndex[i]]
-#            ksWeight += [fraction*(value[itemIndex[i]]/weight[itemIndex[i]])]
-#            ksValue += [value[itemIndex[i]]*(fraction * (value[itemIndex[i]]/weight[itemIndex[i]]))]
             ksWeight += [fraction*weight[itemIndex[i]]]
             ksValue += [value[itemIndex[i]]*fraction]
             break
