@@ -8,6 +8,8 @@ import math
 # Date of Last Modification: 6/26/19
 # Purpose: Binary Search Tree implementation and corresponding algorithms.
 
+#TESTCHANGE
+
 class BinarySearchTree(object):
   def __init__(self, item, left=None, right=None):
     self.item = item
